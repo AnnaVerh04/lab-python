@@ -14,3 +14,8 @@ def get_image(url, filename, index):
  saver.write(response.content)
  saver.close()
 
+def download_img(path, query):
+ os.chdir(path)
+ if not os.path.isdir("dataset"):
+  os.mkdir("dataset")
+os.chdir("dataset")
