@@ -14,8 +14,35 @@ def get_image(url, filename, index):
  saver.write(response.content)
  saver.close()
 
-def download_img(path, query):
+def download_image(path, query):
  os.chdir(path)
  if not os.path.isdir("dataset"):
   os.mkdir("dataset")
 os.chdir("dataset")
+
+count = 0
+page = 0
+
+while count< 1000:
+ query_1= query.replace("", "%20")
+ url=f'{URL}search?p={page}&text={query}'
+ print(f"Fetching URL: {url}")
+
+ response=requests.get(url,headers=HEADERS)
+
+ soup=BeautifulSoup(response.text, "html.parser")
+ image_link= soup.findAll('img', class_='serp-item__thumb justifier__thumb')
+ if not image_link:
+  print("No correct images found on this page")
+  break
+ 
+ for image in image_link:
+  if count==1000:
+   url=image.get("src")
+   if url and not url.startswith("data:"):
+    get_image(url, query, count)
+    count+=1
+    print(count) 
+    page +=1
+
+    
