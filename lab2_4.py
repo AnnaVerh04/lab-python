@@ -1,8 +1,11 @@
 import os
 
-
+"""
+ функция возвращает относительный путь для объекта класса, переданного
+в функцию
+ """
 def get_next(class_name: str) -> str:
-    
+   
     path = os.path.join('dataset', class_name)
     class_names = os.listdir(path)
     class_names.append(None)
