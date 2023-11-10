@@ -5,7 +5,12 @@ import typing
 
 
 def write_file(file_name: str, data: list[list[str]]) -> None:
-    '''Записывает данные в csv файл'''
+    '''Записывает данные в csv файл
+     Parameters
+    ----------
+    file_name(str) : Файл аннотации 
+    data: (list[list[str]]): Данные 
+    '''
     file: typing.TextIO = open(file_name, "w")
     writer: csv.writer = csv.writer(file, delimiter=",")
     for row in data:
@@ -14,7 +19,12 @@ def write_file(file_name: str, data: list[list[str]]) -> None:
 
 
 def copy_file(start_path: str, end_path: str) -> None:
-    '''Копирует файлы'''
+    '''Копирует файлы
+    Parameters
+    ----------
+    start_path(str) : Стартовый путь 
+    end_path:(str): Конечный путь
+    '''
     dirs: list[str] = os.listdir(start_path)
     for dir in dirs:
         path: str = os.path.join(start_path, dir)
@@ -26,8 +36,14 @@ def copy_file(start_path: str, end_path: str) -> None:
                             os.path.join(end_path, "dataset", dir + "_" + file))
 
 
-def create_annotation(start_path, end_path, file_name) -> None:
-    '''Создаёт аннотацию'''
+def create_annotation(start_path: str, end_path: str, file_name: str) -> None:
+    '''Создание аннотации
+    Parameters
+    ----------
+    start_path(str) : Стартовый путь 
+    end_path:(str): Конечный путь
+    file_name(str): Файл аннотации
+    '''
     data: list[list[str]] = [["full_path", "path", "class"]]
 
     dirs: list[str] = os.listdir(start_path)

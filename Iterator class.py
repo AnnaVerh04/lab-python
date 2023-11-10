@@ -4,7 +4,15 @@ from typing import Optional
 
 
 def read_file(path: str) -> list[list[str]]:
-    '''Читает файл path и возвращает матрицу имён файлов'''
+    '''Читает файл path и возвращает матрицу имён файлов
+    Parameters
+    ----------
+    path(str) : Файл path
+      Имя класса
+    Returns
+    -------
+    list[list[str]]
+    Матрица имён файлов'''
     files: list[list[str]] = []
     csvfile: typing.TextIO = open(path, "r")
     reader: csv.DictReader = csv.DictReader(csvfile, delimiter=",")

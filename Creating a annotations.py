@@ -4,7 +4,12 @@ import typing
 
 
 def write_file(file_name: str, data: list[list[str]]) -> None:
-    '''Записывает данные в csv файл'''
+    '''Записывает данные в csv файл
+     Parameters
+    ----------
+    file_name(str) : Файл аннотации
+    data: (list[list[str]]): Данные 
+    '''
     file: typing.TextIO = open(file_name, "w")
     writer: csv.writer = csv.writer(file, delimiter=",")
     for row in data:
@@ -13,7 +18,12 @@ def write_file(file_name: str, data: list[list[str]]) -> None:
 
 
 def create_annotation(path_data: str, path_to_annotation: str) -> None:
-    '''Создаёт аннотацию'''
+    '''Создаёт аннотацию
+    Parameters
+    ----------
+    path_data(str): Путь до данных 
+    path_to_annotation(str): Путь до аннотации
+    '''
     data: list[list[str]] = [["full_path", "path", "class"]]
 
     dirs: list[str] = os.listdir(path_data)
