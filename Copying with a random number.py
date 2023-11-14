@@ -46,7 +46,7 @@ def copy_and_create_annotation(start_path: str, end_path: str, file_name: str) -
             shutil.copyfile(os.path.join(start_path, dir, file),
                             os.path.join(end_path, "dataset", str(random_file_name) + ".jpg"))
 
-            data.append([os.path.abspath(os.path.join(end_path, "dataset", dir + "_" + file)),
+            data.append([os.path.abspath(os.path.join(end_path, "dataset",str(random_file_name) + ".jpg")),
                          os.path.join(end_path, "dataset", str(random_file_name) + ".jpg"), dir])
 
     write_file(os.path.join(end_path, file_name), data)
