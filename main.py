@@ -2,7 +2,8 @@ import os
 import sys
 import typing
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog, QFileSystemModel
 
 from form import Ui_MainWindow
 import Creating_a_annotations, Copying_a_dataset, Copying_with_a_random_number, Iterator_class
@@ -16,11 +17,42 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.cat_iterator = None
+        self.dog_iterator = None
+        self.path_to_tree = None
+        self.dirModel = None
+
         self.ui.button_lab_1.clicked.connect(self.click_button_lab_1)
         self.ui.button_lab_2.clicked.connect(self.click_button_lab_2)
         self.ui.button_lab_3.clicked.connect(self.click_button_lab_3)
+        self.ui.button_tree.clicked.connect(self.click_button_tree)
 
-    
+        self.ui.button_next_cat.clicked.connect(self.click_next_cat)
+        self.ui.button_next_dog.clicked.connect(self.click_next_dog)
+        self.ui.button_get_annotation.clicked.connect(self.click_get_annotation)
+
+    def click_next_cat(self):
+        path = next(self.cat_iterator)
+        self.resize_image(path)
+
+    def click_next_dog(self):
+        path = next(self.dog_iterator)
+        self.resize_image(path)
+
+    def resize_image(self, path):
+        pixmap = QPixmap(path)
+        if pixmap.width() > pixmap.height():
+            pixmap = pixmap.scaledToWidth(self.ui.image.width())
+        else:
+            pixmap = pixmap.scaledToHeight(self.ui.image.height())
+        self.ui.image.setPixmap(pixmap)
+
+    def click_get_annotation(self):
+        filter = "csv(*.csv)"
+        path = QFileDialog.getOpenFileName(filter=filter)
+        self.cat_iterator = Iterator_class.FileIterator("cat", path[0])
+        self.dog_iterator = Iterator_class.FileIterator("dog", path[0])
+
     def click_button_lab_1(self):
         path = QFileDialog.getExistingDirectory(self, "Путь к dataset")
         path_to_annotation: str = "annotation.csv"
@@ -43,6 +75,14 @@ class MainWindow(QMainWindow):
 
         file_name: str = "annotation.csv"
         Copying_with_a_random_number.copy_and_create_annotation(os.path.relpath(start_path), os.path.relpath(end_path), file_name)
+
+
+    def click_button_tree(self):
+        self.path_to_tree = QFileDialog.getExistingDirectory()
+        self.dirModel = QFileSystemModel(self)
+        self.dirModel.setRootPath(self.path_to_tree)
+        self.ui.treeView.setModel(self.dirModel)
+        self.ui.treeView.setRootIndex(self.dirModel.index(self.path_to_tree))
 
 
 
