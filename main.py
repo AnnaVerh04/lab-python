@@ -38,7 +38,11 @@ class MainWindow(QMainWindow):
 
 
     def click_button_lab_3(self):
-        pass
+        start_path = QFileDialog.getExistingDirectory(self, "Путь к dataset")
+        end_path = QFileDialog.getExistingDirectory(self, "Новое расположение")
+
+        file_name: str = "annotation.csv"
+        Copying_with_a_random_number.copy_and_create_annotation(os.path.relpath(start_path), os.path.relpath(end_path), file_name)
 
 
 
