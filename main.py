@@ -29,7 +29,12 @@ class MainWindow(QMainWindow):
 
     
     def click_button_lab_2(self):
-        pass
+        start_path = QFileDialog.getExistingDirectory(self, "Путь к dataset")
+        end_path = QFileDialog.getExistingDirectory(self, "Новое расположение")
+
+        file_name: str = "annotation.csv"
+        Copying_a_dataset.copy_file(start_path, end_path)
+        Copying_a_dataset.create_annotation(os.path.relpath(start_path), os.path.relpath(end_path), file_name)
 
 
     def click_button_lab_3(self):
