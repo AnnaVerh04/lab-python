@@ -1,15 +1,40 @@
+import os
 import sys
 import typing
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
 
 from form import Ui_MainWindow
+import Creating_a_annotations, Copying_a_dataset, Copying_with_a_random_number, Iterator_class
+
+
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.ui.button_lab_1.clicked.connect(self.click_button_lab_1)
+        self.ui.button_lab_2.clicked.connect(self.click_button_lab_2)
+        self.ui.button_lab_3.clicked.connect(self.click_button_lab_3)
+
+    
+    def click_button_lab_1(self):
+        path = QFileDialog.getExistingDirectory(self, "Путь к dataset")
+        path_to_annotation: str = "annotation.csv"
+        print(os.path.relpath(path))
+        Creating_a_annotations.create_annotation(os.path.relpath(path), path_to_annotation)
+
+    
+    def click_button_lab_2(self):
+        pass
+
+
+    def click_button_lab_3(self):
+        pass
+
 
 
 if __name__ == "__main__":
