@@ -9,8 +9,6 @@ from form import Ui_MainWindow
 import Creating_a_annotations, Copying_a_dataset, Copying_with_a_random_number, Iterator_class
 
 
-
-
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
